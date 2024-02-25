@@ -23,7 +23,7 @@ class ApiAdapter : ListAdapter<Shop, ApiItemViewHolder>(ApiItemCallback()) {
     var onClickDeleteFavorite: ((Shop) -> Unit)? = null
 
     // Itemを押したときのメソッド
-    var onClickItem: ((String) -> Unit)? = null
+    var onClickItem: ((id:String, name:String, imageUrl:String, url:String) -> Unit)? = null
 
 
     /**
@@ -60,7 +60,7 @@ class ApiItemViewHolder(private val binding: RecyclerFavoriteBinding) :
                 )
             )
             setOnClickListener {
-                adapter.onClickItem?.invoke(if (shop.couponUrls.sp.isNotEmpty()) shop.couponUrls.sp else shop.couponUrls.pc)
+                adapter.onClickItem?.invoke(shop.id, shop.logoImage, shop.name, if (shop.couponUrls.sp.isNotEmpty()) shop.couponUrls.sp else shop.couponUrls.pc)
             }
         }
         // 1行の項目にShopの値をセット
