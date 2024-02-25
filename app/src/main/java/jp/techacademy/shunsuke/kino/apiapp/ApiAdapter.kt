@@ -23,7 +23,7 @@ class ApiAdapter : ListAdapter<Shop, ApiItemViewHolder>(ApiItemCallback()) {
     var onClickDeleteFavorite: ((Shop) -> Unit)? = null
 
     // Itemを押したときのメソッド
-    var onClickItem: ((id:String, name:String, imageUrl:String, url:String) -> Unit)? = null
+    var onClickItem: ((id:String, imageUrl:String, name:String, url:String) -> Unit)? = null
 
 
     /**

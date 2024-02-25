@@ -69,8 +69,8 @@ class ApiFragment: Fragment() {
                 fragmentCallback?.onDeleteFavorite(it.id)
             }
             // Itemをクリックしたとき
-            onClickItem = { id, name, imageUrl, url ->
-                fragmentCallback?.onClickItem(id, name, imageUrl, url)
+            onClickItem = { id, imageUrl, name, url ->
+                fragmentCallback?.onClickItem(id, imageUrl, name, url)
             }
 
         }
@@ -116,6 +116,11 @@ class ApiFragment: Fragment() {
         updateData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateView()
+    }
+
     /**
      * お気に入りが削除されたときの処理（Activityからコールされる）
      */
@@ -123,6 +128,8 @@ class ApiFragment: Fragment() {
         // RecyclerViewのAdapterに対して再描画のリクエストをする
         apiAdapter.notifyItemRangeChanged(0, apiAdapter.itemCount)
     }
+
+
 
     // -----変更ここから
     private fun updateData(isAdd: Boolean = false) {
@@ -187,6 +194,7 @@ class ApiFragment: Fragment() {
         })
     }
     // -----変更ここまで
+
 
     private fun updateRecyclerView(list: List<Shop>) {
         apiAdapter.submitList(list)

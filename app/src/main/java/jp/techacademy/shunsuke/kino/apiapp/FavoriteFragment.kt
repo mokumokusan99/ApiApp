@@ -47,7 +47,7 @@ class FavoriteFragment: Fragment() {
             }
             // Itemをクリックしたとき
             onClickItem = { id, name, imageUrl, url ->
-                fragmentCallback?.onClickItem(id, name, imageUrl, url)
+                fragmentCallback?.onClickItem(id, imageUrl, name, url)
             }
         }
         // RecyclerViewの初期化
@@ -61,8 +61,16 @@ class FavoriteFragment: Fragment() {
         updateData()
     }
 
+
+
     fun updateData() {
         favoriteAdapter.submitList(FavoriteShop.findAll())
         binding.swipeRefreshLayout.isRefreshing = false
     }
+
+    override fun onResume() {
+        super.onResume()
+        updateData()
+    }
+
 }

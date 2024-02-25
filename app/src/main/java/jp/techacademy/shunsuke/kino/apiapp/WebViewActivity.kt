@@ -25,50 +25,14 @@ class WebViewActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val id = intent.getStringExtra(KEY_ID)
-        val name = intent.getStringExtra(KEY_NAME)
         val imageUrl = intent.getStringExtra(KEY_IMAGEURL)
+        val name = intent.getStringExtra(KEY_NAME)
         val url = intent.getStringExtra(KEY_URL)
-        if (id != null && name != null && imageUrl != null && url != null) {
+        if (id != null && imageUrl != null && name != null && url != null) {
 
             binding.webView.loadUrl(url)
 
-/*
-            val isFavorite = FavoriteShop.findBy(id) != null
 
-            val starImageView = findViewById<ImageView>(R.id.couponurlimageView)
-            starImageView.setOnClickListener {
-                this@WebViewActivity.isFavorite = !isFavorite
-
-                if (isFavorite) {
-                    // お気に入りから削除
-                    FavoriteShop.delete(id)
-                } else {
-                    // お気に入りに追加
-                    val favoriteShop = FavoriteShop()
-                    favoriteShop.id = id
-                    favoriteShop.name = name
-                    favoriteShop.imageUrl = imageUrl
-                    favoriteShop.url = url
-                    FavoriteShop.insert(favoriteShop)
-                    // Realmデータベースとの接続を開く
-                    val config = RealmConfiguration.create(schema = setOf(FavoriteShop::class))
-                    val realm = Realm.open(config)
-
-                    // 登録処理
-                    realm.writeBlocking {
-                        copyToRealm(favoriteShop)
-                    }
-
-                    // Realmデータベースとの接続を閉じる
-                    realm.close()
-                }
-
-                // ★マークの表示を更新
-                binding.couponurlimageView.setImageResource(if (isFavorite) R.drawable.ic_star_border else R.drawable.ic_star)
-            }
-        }
-    }
-*/
             // ★マークの初期表示を設定
             isFavorite = FavoriteShop.findBy(id) != null
             starImageView = findViewById(R.id.couponurlimageView)
@@ -78,42 +42,18 @@ class WebViewActivity : AppCompatActivity() {
                 isFavorite = !isFavorite
                 if (isFavorite) {
                     // お気に入りに追加
-                    val favoriteShop = FavoriteShop()
-                    favoriteShop.id = id
-                    favoriteShop.name = name
-                    favoriteShop.imageUrl = imageUrl
-                    favoriteShop.url = url
+                    val favoriteShop = FavoriteShop().apply {
+                        this.id = id
+                        this.imageUrl = imageUrl
+                        this.name = name
+                        this.url = url
+                    }
                     FavoriteShop.insert(favoriteShop)
 
-                    // Realmデータベースとの接続を開く
-                    val config = RealmConfiguration.create(schema = setOf(FavoriteShop::class))
-                    val realm = Realm.open(config)
 
-                    // 登録処理
-                    realm.writeBlocking {
-                        copyToRealm(favoriteShop)
-                    }
-
-                    // Realmデータベースとの接続を閉じる
-                    realm.close()
                 } else {
                     // お気に入りから削除
                     FavoriteShop.delete(id)
-
-                    // Realmデータベースとの接続を開く
-                    val config = RealmConfiguration.create(schema = setOf(FavoriteShop::class))
-                    val realm = Realm.open(config)
-
-                    // 削除処理
-                    realm.writeBlocking {
-                        val favoriteShops = query<FavoriteShop>("id=='$id'").find()
-                        favoriteShops.forEach {
-                            delete(it)
-                        }
-                    }
-
-                    // Realmデータベースとの接続を閉じる
-                    realm.close()
 
                 }
 
@@ -154,15 +94,15 @@ class WebViewActivity : AppCompatActivity() {
 
     companion object {
         private const val KEY_ID = "key_id"
-        private const val KEY_NAME = "key_name"
         private const val KEY_IMAGEURL = "key_imageUrl"
+        private const val KEY_NAME = "key_name"
         private const val KEY_URL = "key_url"
         fun start(activity: Activity, id: String, name: String, imageUrl: String, url: String) {
             activity.startActivity(
                 Intent(activity, WebViewActivity::class.java).apply {
                     putExtra(KEY_ID, id)
-                    putExtra(KEY_NAME, name)
-                    putExtra(KEY_IMAGEURL, imageUrl)
+                    putExtra(KEY_IMAGEURL, name)
+                    putExtra(KEY_NAME, imageUrl)
                     putExtra(KEY_URL, url)
                 }
             )

@@ -46,10 +46,9 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
         })
     }
 
-    override fun onClickItem(id: String, name:String, imageUrl:String, url: String) {
-        WebViewActivity.start(this, id, name, imageUrl, url)
+    override fun onClickItem(id: String, imageUrl:String, name:String, url: String) {
+        WebViewActivity.start(this, id, imageUrl, name, url)
     }
-
 
     /**
      * お気に入りタブにトーストを表示
@@ -69,8 +68,8 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
     override fun onAddFavorite(shop: Shop) {
         FavoriteShop.insert(FavoriteShop().apply {
             id = shop.id
-            name = shop.name
             imageUrl = shop.logoImage
+            name = shop.name
             url = shop.couponUrls.sp.ifEmpty { shop.couponUrls.pc }
         })
         (viewPagerAdapter.fragments[VIEW_PAGER_POSITION_FAVORITE] as FavoriteFragment).updateData()
@@ -82,6 +81,7 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
     override fun onDeleteFavorite(id: String) {
         showConfirmDeleteFavoriteDialog(id)
     }
+
 
     private fun showConfirmDeleteFavoriteDialog(id: String) {
         AlertDialog.Builder(this)
@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
             .create()
             .show()
     }
+
 
     private fun deleteFavorite(id: String) {
         FavoriteShop.delete(id)
