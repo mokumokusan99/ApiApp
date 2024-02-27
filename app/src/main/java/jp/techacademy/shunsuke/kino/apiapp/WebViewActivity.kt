@@ -39,6 +39,7 @@ class WebViewActivity : AppCompatActivity() {
             starImageView = findViewById(R.id.couponurlimageView)
             updateStarIcon()
 
+
             starImageView.setOnClickListener {
                 isFavorite = !isFavorite
                 if (isFavorite) {
@@ -55,19 +56,34 @@ class WebViewActivity : AppCompatActivity() {
 
                 } else {
                     // お気に入りから削除
-                    FavoriteShop.delete(id)
+                    // お気に入りから削除
+                    AlertDialog.Builder(this)
+                        .setTitle(R.string.delete_favorite_dialog_title)
+                        .setMessage(R.string.delete_favorite_dialog_message)
+                        .setPositiveButton(android.R.string.ok) { _, _ ->
+                            FavoriteShop.delete(id)
+                            // お気に入りから削除した後の処理を記述する場合はここに追加
+                            isFavorite = false // ★ マークを更新するために isFavorite を更新
+                            updateStarIcon()
+                        }
+                        .setNegativeButton(android.R.string.cancel) { _, _ -> }
+                        .create()
+                        .show()
+
+                    }
 
                 }
 
                 updateStarIcon()
             }
-        }
+
     }
 
     private fun updateStarIcon() {
         // ★マークの表示を更新
         starImageView.setImageResource(if (isFavorite) R.drawable.ic_star else R.drawable.ic_star_border)
     }
+
 
 
     companion object {
