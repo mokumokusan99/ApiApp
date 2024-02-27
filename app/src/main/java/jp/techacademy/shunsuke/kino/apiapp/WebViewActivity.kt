@@ -27,8 +27,9 @@ class WebViewActivity : AppCompatActivity() {
         val id = intent.getStringExtra(KEY_ID)
         val imageUrl = intent.getStringExtra(KEY_IMAGEURL)
         val name = intent.getStringExtra(KEY_NAME)
+        val address = intent.getStringExtra(KEY_ADDRESS)
         val url = intent.getStringExtra(KEY_URL)
-        if (id != null && imageUrl != null && name != null && url != null) {
+        if (id != null && imageUrl != null && name != null && address != null && url != null) {
 
             binding.webView.loadUrl(url)
 
@@ -46,6 +47,7 @@ class WebViewActivity : AppCompatActivity() {
                         this.id = id
                         this.imageUrl = imageUrl
                         this.name = name
+                        this.address = address
                         this.url = url
                     }
                     FavoriteShop.insert(favoriteShop)
@@ -66,43 +68,21 @@ class WebViewActivity : AppCompatActivity() {
         // ★マークの表示を更新
         starImageView.setImageResource(if (isFavorite) R.drawable.ic_star else R.drawable.ic_star_border)
     }
-/*
-            // 初期状態の星マークを設定
-            //updateStarIcon()
-// 星のアイコンを設定
-            binding.couponurlimageView.setImageResource(if (isFavorite) R.drawable.ic_star else R.drawable.ic_star_border)
-
-            binding.couponurlimageView.setOnClickListener {
-                if (isFavorite) {
-                    // お気に入りから削除
-                    FavoriteShop.delete(id)
-                } else {
-                    // お気に入りに追加
-                    val favoriteShop = FavoriteShop()
-                    favoriteShop.id = id
-                    favoriteShop.url = url
-                }
-                FavoriteShop.insert(favoriteShop)
-            }
-
-            // ★マークの表示を更新
-            binding.couponurlimageView.setImageResource(if (isFavorite) R.drawable.ic_star_border else R.drawable.ic_star)
-        }
-
-*/
 
 
     companion object {
         private const val KEY_ID = "key_id"
         private const val KEY_IMAGEURL = "key_imageUrl"
         private const val KEY_NAME = "key_name"
+        private const val KEY_ADDRESS = "key_address"
         private const val KEY_URL = "key_url"
-        fun start(activity: Activity, id: String, name: String, imageUrl: String, url: String) {
+        fun start(activity: Activity, id: String, name: String, imageUrl: String, address: String, url: String) {
             activity.startActivity(
                 Intent(activity, WebViewActivity::class.java).apply {
                     putExtra(KEY_ID, id)
                     putExtra(KEY_IMAGEURL, name)
                     putExtra(KEY_NAME, imageUrl)
+                    putExtra(KEY_ADDRESS, address)
                     putExtra(KEY_URL, url)
                 }
             )

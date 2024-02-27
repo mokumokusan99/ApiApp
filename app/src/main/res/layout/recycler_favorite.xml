@@ -4,45 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="100dp"
     android:background="@android:color/white">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="79dp"
+        android:layout_height="100dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,MissingConstraints" />
 
     <TextView
         android:id="@+id/nameTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/addressTextView"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:padding="8dp"
         android:textColor="@android:color/black"
-        android:textSize="15sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/favoriteImageView"
-        app:layout_constraintStart_toEndOf="@id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/favoriteImageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/favoriteImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:src="@drawable/ic_star"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@android:color/holo_orange_light"
-        tools:ignore="ContentDescription,ImageContrastCheck" />
+        tools:ignore="ContentDescription,ImageContrastCheck,MissingConstraints"
+        tools:layout_editor_absoluteX="351dp"
+        tools:layout_editor_absoluteY="24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

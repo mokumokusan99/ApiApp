@@ -16,7 +16,7 @@ class FavoriteAdapter : ListAdapter<FavoriteShop, FavoriteItemViewHolder>(Favori
     // お気に入り画面から削除するときのコールバック（ApiFragmentへ通知するメソッド)
     var onClickDeleteFavorite: ((FavoriteShop) -> Unit)? = null
     // Itemを押したときのメソッド
-    var onClickItem: ((id:String, imageUrl:String, name:String, url:String) -> Unit)? = null
+    var onClickItem: ((id:String, imageUrl:String, name:String, address:String,url:String) -> Unit)? = null
 
 
     /**
@@ -52,12 +52,15 @@ class FavoriteItemViewHolder(private val binding: RecyclerFavoriteBinding) :
             )
             // クリック時のイベントリスナーを割り当て
             setOnClickListener {
-                adapter.onClickItem?.invoke(favoriteShop.id, favoriteShop.imageUrl, favoriteShop.name, favoriteShop.url)
+                adapter.onClickItem?.invoke(favoriteShop.id, favoriteShop.imageUrl, favoriteShop.name, favoriteShop.address, favoriteShop.url)
             }
         }
 
         // nameTextViewのtextプロパティに代入されたオブジェクトのnameプロパティを代入
         binding.nameTextView.text = favoriteShop.name
+
+        // addressTextViewのtextプロパティに代入されたオブジェクトのaddressプロパティを代入
+        binding.addressTextView.text = favoriteShop.address
 
         // Picassoというライブラリを使ってImageVIewに画像をはめ込む
         Picasso.get().load(favoriteShop.imageUrl).into(binding.imageView)

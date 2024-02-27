@@ -69,8 +69,8 @@ class ApiFragment: Fragment() {
                 fragmentCallback?.onDeleteFavorite(it.id)
             }
             // Itemをクリックしたとき
-            onClickItem = { id, imageUrl, name, url ->
-                fragmentCallback?.onClickItem(id, imageUrl, name, url)
+            onClickItem = { id, imageUrl, name, address, url ->
+                fragmentCallback?.onClickItem(id, imageUrl, name, address, url)
             }
 
         }

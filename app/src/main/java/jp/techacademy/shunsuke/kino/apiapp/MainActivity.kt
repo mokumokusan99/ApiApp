@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
         })
     }
 
-    override fun onClickItem(id: String, imageUrl:String, name:String, url: String) {
-        WebViewActivity.start(this, id, imageUrl, name, url)
+    override fun onClickItem(id: String, imageUrl:String, name:String, address:String, url: String) {
+        WebViewActivity.start(this, id, imageUrl, name, address, url)
     }
 
     /**
@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity(), FragmentCallback {
             id = shop.id
             imageUrl = shop.logoImage
             name = shop.name
+            address = shop.address
             url = shop.couponUrls.sp.ifEmpty { shop.couponUrls.pc }
         })
         (viewPagerAdapter.fragments[VIEW_PAGER_POSITION_FAVORITE] as FavoriteFragment).updateData()

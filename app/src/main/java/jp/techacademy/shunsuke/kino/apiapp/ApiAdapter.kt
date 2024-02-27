@@ -23,7 +23,7 @@ class ApiAdapter : ListAdapter<Shop, ApiItemViewHolder>(ApiItemCallback()) {
     var onClickDeleteFavorite: ((Shop) -> Unit)? = null
 
     // Itemを押したときのメソッド
-    var onClickItem: ((id:String, imageUrl:String, name:String, url:String) -> Unit)? = null
+    var onClickItem: ((id:String, imageUrl:String, name:String, address:String, url:String) -> Unit)? = null
 
 
     /**
@@ -60,12 +60,15 @@ class ApiItemViewHolder(private val binding: RecyclerFavoriteBinding) :
                 )
             )
             setOnClickListener {
-                adapter.onClickItem?.invoke(shop.id, shop.logoImage, shop.name, if (shop.couponUrls.sp.isNotEmpty()) shop.couponUrls.sp else shop.couponUrls.pc)
+                adapter.onClickItem?.invoke(shop.id, shop.logoImage, shop.name, shop.address,if (shop.couponUrls.sp.isNotEmpty()) shop.couponUrls.sp else shop.couponUrls.pc)
             }
         }
         // 1行の項目にShopの値をセット
         // nameTextViewのtextプロパティに代入されたオブジェクトのnameプロパティを代入
         binding.nameTextView.text = shop.name
+
+        // addressTextViewのtextプロパティに代入されたオブジェクトのaddressプロパティを代入
+        binding.addressTextView.text = shop.address
 
         // Picassoライブラリを使い、imageViewにdata.logoImageのurlの画像を読み込ませる
         Picasso.get().load(shop.logoImage).into(binding.imageView)
